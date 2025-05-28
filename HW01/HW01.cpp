@@ -1,20 +1,117 @@
-﻿// HW01.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
+﻿#include <iostream>
 
-#include <iostream>
+using namespace std;
 
-int main()
+
+double GetAverage(int arr[], int size)
 {
-    std::cout << "Hello World!\n";
+	double sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		sum += arr[i];
+	}
+	return sum / size;
 }
 
-// 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
-// 프로그램 디버그: <F5> 키 또는 [디버그] > [디버깅 시작] 메뉴
+int GetTotal(int arr[], int size)
+{
+	int total = 0;
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+	return total;
+}
 
-// 시작을 위한 팁: 
-//   1. [솔루션 탐색기] 창을 사용하여 파일을 추가/관리합니다.
-//   2. [팀 탐색기] 창을 사용하여 소스 제어에 연결합니다.
-//   3. [출력] 창을 사용하여 빌드 출력 및 기타 메시지를 확인합니다.
-//   4. [오류 목록] 창을 사용하여 오류를 봅니다.
-//   5. [프로젝트] > [새 항목 추가]로 이동하여 새 코드 파일을 만들거나, [프로젝트] > [기존 항목 추가]로 이동하여 기존 코드 파일을 프로젝트에 추가합니다.
-//   6. 나중에 이 프로젝트를 다시 열려면 [파일] > [열기] > [프로젝트]로 이동하고 .sln 파일을 선택합니다.
+void SortAcsending(int arr[], int size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+		int temp = i;
+		for (int j = i+1; j < size; ++j)
+		{
+			if (arr[temp] > arr[j])
+			{
+				temp = j;
+			}
+		}
+		if (temp != i)
+		{
+			int swap = arr[i];
+			arr[i] = arr[temp];
+			arr[temp] = swap;
+		}
+	}
+}
+void SortDesending(int arr[], int size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+		int temp = i;
+		for (int j = i+1; j < size; ++j)
+		{
+			if (arr[temp] < arr[j])
+			{
+				temp = j;
+			}
+		}
+		if (temp != i)
+		{
+			int swap = arr[i];
+			arr[i] = arr[temp];
+			arr[temp] = swap;
+		}
+	}
+}
+int main()
+{
+	int arr[5];
+	int sortMethod = 0;
+	int size = sizeof(arr) / sizeof(arr[0]);
+	for (int i = 0; i < size; i++)
+	{
+		cout << "숫자 입력" << i + 1 << ": ";
+		cin >> arr[i];
+	}
+	/*int total = 0;
+	double average = 0;
+	for (int i = 0; i < size; i++)
+	{
+		total += arr[i];
+	}
+	average = static_cast<double>(total) / size;
+
+	cout << "평균: " << average << endl;
+	cout << "총합: " << total << endl;*/
+	cout << "평균: " << GetAverage(arr, size) << endl << "총합: " << GetTotal(arr, size) << endl;
+	/*SortAcsending(arr, size);
+	for (int i = 0; i < size; i++)
+	{
+		cout << arr[i] << " ";
+	}*/
+	cout << endl;
+	cout << "정렬 방식을 고르세요: 1. 오름차순 2. 내림차순 ";
+	cin >> sortMethod;
+	if (sortMethod == 1)
+	{
+		SortAcsending(arr, size);
+	}
+		
+	else if (sortMethod == 2)
+	{
+		SortDesending(arr, size);
+	}
+	else
+	{
+		cout << "잘못된 입력입니다." << endl;
+		return 1;
+	}
+
+	cout << "정렬 결과: ";
+	for (int i = 0; i < size; i++)
+	{
+		cout << arr[i] << " ";
+	}
+
+	return 0;
+}
